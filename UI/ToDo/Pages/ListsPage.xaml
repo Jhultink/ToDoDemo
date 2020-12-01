@@ -2,32 +2,52 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ToDo.Pages.ListsPage"
+             x:Name="_root"
              Title="To Do Lists">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="Add"                      
+                     Command="{Binding CreateCommand}" />
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
             <ListView ItemsSource="{Binding Lists}" 
                       VerticalOptions="FillAndExpand"
                       ItemTapped="ListView_ItemTapped"
+                      HasUnevenRows="True"
                       IsVisible="{Binding Lists, Converter={StaticResource Converter_CollectionNotEmpty}}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <StackLayout Padding="15">
-                                <Label Text="{Binding Name}" />
-                            </StackLayout>
+                            <SwipeView>
+                                <SwipeView.RightItems>
+                                    <SwipeItems>
+                                        <SwipeItem Text="Delete"
+                                                   IconImageSource="Delete"
+                                                   Command="{Binding BindingContext.DeleteCommand, Source={Reference _root}}"
+                                                   CommandParameter="{Binding .}"
+                                                   BackgroundColor="Red" />
+                                    </SwipeItems>
+                                </SwipeView.RightItems>
+                                <StackLayout Padding="15" 
+                                         Orientation="Horizontal">
+                                    <Label Text="{Binding Name}" 
+                                       VerticalOptions="CenterAndExpand" />
+                                    <Image Source="Chevron.png"
+                                       HorizontalOptions="EndAndExpand"
+                                       VerticalOptions="CenterAndExpand" />
+                                </StackLayout>
+                            </SwipeView>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
             <StackLayout VerticalOptions="CenterAndExpand"
                          Spacing="20"
+                         Padding="40"
                          IsVisible="{Binding Lists, Converter={StaticResource Converter_CollectionEmpty}}">
-                <Label Text="You currently have no lists"
+                <Label Text="You currently have no to-do lists. Create one with the + button above"
+                       HorizontalTextAlignment="Center"
                        HorizontalOptions="CenterAndExpand"/>
-                <Button Text="Create" 
-                        Style="{StaticResource PrimaryButton}"
-                        HorizontalOptions="CenterAndExpand"
-                        Command="{Binding CreateCommand}" />
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>

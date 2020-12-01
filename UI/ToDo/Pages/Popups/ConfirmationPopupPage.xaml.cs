@@ -13,10 +13,11 @@ using Xamarin.Forms.Xaml;
 namespace ToDo.Pages.Popups
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class SetNamePopupPage : PopupPage
+    public partial class ConfirmationPopupPage : PopupPage
     {
-        private readonly TaskCompletionSource<string> _tcs;
-        public Task<string> Task => _tcs.Task;
+        private readonly TaskCompletionSource<bool> _tcs;
+
+        public Task<bool> Task => _tcs.Task;
 
         private string _header;
         public string Header
@@ -46,33 +47,22 @@ namespace ToDo.Pages.Popups
             set { _cancelButtonText = value; OnPropertyChanged(); }
         }
 
-        private string _name;
-        public string Name
-        {
-            get { return _name; }
-            set { _name = value; OnPropertyChanged(); }
-        }
-
-        public SetNamePopupPage()
+        public ConfirmationPopupPage()
         {
             InitializeComponent();
-
-            Entry.Focus();
-
-            _tcs = new TaskCompletionSource<string>();
+            _tcs = new TaskCompletionSource<bool>();
         }
 
         private async void Confirm_Clicked(object sender, EventArgs e)
         {
-            _tcs.TrySetResult(Name);
+            _tcs.TrySetResult(true);
 
             var nav = IoC.Container.Resolve<IPopupNavigation>();
             await nav.PopAsync();
         }
-
         private async void Cancel_Clicked(object sender, EventArgs e)
         {
-            _tcs.TrySetCanceled();
+            _tcs.TrySetResult(false);
 
             var nav = IoC.Container.Resolve<IPopupNavigation>();
             await nav.PopAsync();

@@ -1,12 +1,61 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Title="{Binding Title}"
+             x:Name="_root"
              x:Class="ToDo.Pages.ItemsPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="Add"                      
+                     Command="{Binding CreateCommand}" />
+        <ToolbarItem IconImageSource="Edit"                      
+                     Command="{Binding EditListCommand}" />
+        <ToolbarItem IconImageSource="Delete"                      
+                     Command="{Binding DeleteListCommand}" />
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <ListView ItemsSource="{Binding Items}" 
+                      VerticalOptions="FillAndExpand"
+                      HasUnevenRows="True"
+                      ItemTapped="ListView_ItemTapped"
+                      IsVisible="{Binding Items, Converter={StaticResource Converter_CollectionNotEmpty}}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <SwipeView>
+                                <SwipeView.RightItems>
+                                    <SwipeItems>
+                                        <SwipeItem Text="Delete"
+                                                   IconImageSource="Delete"
+                                                   Command="{Binding BindingContext.DeleteItemCommand, Source={Reference _root}}"
+                                                   CommandParameter="{Binding .}"
+                                                   BackgroundColor="Red" />
+                                    </SwipeItems>
+                                </SwipeView.RightItems>
+                                <StackLayout Padding="15" 
+                                         Orientation="Horizontal">
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding BindingContext.EditItemCommand, Source={Reference _root}}"
+                                                              CommandParameter="{Binding .}"/>
+                                    </StackLayout.GestureRecognizers>
+                                    <Label Text="{Binding Name}" 
+                                       VerticalOptions="CenterAndExpand" />
+                                    <CheckBox IsChecked="{Binding Completed, Mode=TwoWay}"
+                                          HorizontalOptions="EndAndExpand" />
+                                </StackLayout>
+                            </SwipeView>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <StackLayout VerticalOptions="CenterAndExpand"
+                         Spacing="20"
+                         Padding="40"
+                         IsVisible="{Binding Items, Converter={StaticResource Converter_CollectionEmpty}}">
+                <Label Text="This list currently has no items. Add something to do with the + button above."
+                       HorizontalTextAlignment="Center" 
+                       HorizontalOptions="CenterAndExpand"/>
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

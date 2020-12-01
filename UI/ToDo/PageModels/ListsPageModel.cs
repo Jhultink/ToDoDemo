@@ -25,6 +25,7 @@ namespace ToDo.PageModels
         }
 
         public ICommand CreateCommand { get; set; }
+        public Command<ToDoList> DeleteCommand { get; set; }
 
         private readonly IToDoService _toDoService;
         private readonly IPopupNavigation _popupNavigation;
@@ -35,6 +36,8 @@ namespace ToDo.PageModels
             _popupNavigation = popupNavigation;
 
             CreateCommand = new Command(Create);
+            DeleteCommand = new Command<ToDoList>(Delete);
+
         }
 
         public override async Task OnAppearing()
@@ -43,7 +46,7 @@ namespace ToDo.PageModels
             Lists = new ObservableCollection<ToDoList>(allLists);
         }
 
-        public async void Create()
+        private async void Create()
         {
             try
             {
@@ -67,12 +70,45 @@ namespace ToDo.PageModels
 
                 Lists.Add(newList);
 
-                OnPropertyChanged(nameof(Lists)); // To show/hide list
+                await Navigation.PushAsync<ItemsPage, ItemsPageModel>(x => x.Init(newList));
             }
             catch(OperationCanceledException)
             {
                 Debug.WriteLine("User cancelled setting name");
             }
+            catch (Exception ex)
+            {
+                Debug.Fail("Error creating list", ex.Message);
+            }
         }
+
+        private async void Delete(ToDoList list)
+        {
+            try
+            {
+                var confirmPopup = new ConfirmationPopupPage()
+                {
+                    Header = "Delete",
+                    Body = "Are you sure you want to delete this list?",
+                    ConfirmButtonText = "Yes"
+                };
+
+                await _popupNavigation.PushAsync(confirmPopup);
+
+                if (!await confirmPopup.Task)
+                    return;
+
+                await _toDoService.DeleteList(list.Id);
+
+                Lists.Remove(list);
+
+                OnPropertyChanged(nameof(Lists)); // To show/hide list
+            }
+            catch (Exception ex)
+            {
+                Debug.Fail("Error deleting list", ex.Message);
+            }
+        }
+
     }
 }

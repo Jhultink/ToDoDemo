@@ -14,12 +14,17 @@ namespace ToDo.Services
 
         Task DeleteList(Guid listId);
 
+        Task UpdateListName(Guid listId, string name);
+
         Task<List<ToDoList>> GetAllLists();
 
         Task<ToDoList> GetList(Guid listId);
 
-        Task RemoveItem(Guid listId, Guid itemId);
+        Task DeleteItem(Guid listId, Guid itemId);
 
         Task AddItem(Guid listId, ToDoItem item);
+
+        Task UpdateItemName(Guid listId, Guid itemId, string name);
+
     }
 }
