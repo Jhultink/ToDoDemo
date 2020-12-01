@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Xamarin.Forms;
 
-namespace ToDo
+using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
+
+namespace ToDo.Pages
 {
-    public partial class MainPage : ContentPage
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class ItemsPage : ContentPage
     {
-        public MainPage()
+        public ItemsPage()
         {
             InitializeComponent();
         }

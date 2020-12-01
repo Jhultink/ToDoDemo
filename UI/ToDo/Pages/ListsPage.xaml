@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ToDo.Pages.ListsPage"
+             Title="To Do Lists">
+    <ContentPage.Content>
+        <StackLayout>
+            <ListView ItemsSource="{Binding Lists}" 
+                      VerticalOptions="FillAndExpand" 
+                      IsVisible="{Binding Lists, Converter={StaticResource Converter_CollectionNotEmpty}}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout>
+                                <Label Text="{Binding Name}" />
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <StackLayout IsVisible="{Binding Lists, Converter={StaticResource Converter_CollectionEmpty}}">
+                <Label Text="No Lists"
+                       HorizontalOptions="CenterAndExpand"/>
+                <Button Text="Create" 
+                        HorizontalOptions="CenterAndExpand"
+                        Command="{Binding CreateCommand}"
+                        />
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

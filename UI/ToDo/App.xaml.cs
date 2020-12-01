@@ -1,4 +1,7 @@
 ﻿using System;
+using ToDo.Helpers;
+using ToDo.PageModels;
+using ToDo.Pages;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -10,7 +13,11 @@ namespace ToDo
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            IoC.Build();
+
+            var listsPage = IoC.ResolvePage<ListsPage, ListsPageModel>();
+
+            MainPage = new NavigationPage(listsPage);
         }
 
         protected override void OnStart()
