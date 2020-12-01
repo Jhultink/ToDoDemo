@@ -6,12 +6,13 @@
     <ContentPage.Content>
         <StackLayout>
             <ListView ItemsSource="{Binding Lists}" 
-                      VerticalOptions="FillAndExpand" 
+                      VerticalOptions="FillAndExpand"
+                      ItemTapped="ListView_ItemTapped"
                       IsVisible="{Binding Lists, Converter={StaticResource Converter_CollectionNotEmpty}}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <StackLayout>
+                            <StackLayout Padding="15">
                                 <Label Text="{Binding Name}" />
                             </StackLayout>
                         </ViewCell>

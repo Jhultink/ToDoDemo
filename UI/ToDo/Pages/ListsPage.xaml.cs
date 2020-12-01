@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using ToDo.Models;
+using ToDo.PageModels;
 using Xamarin.Forms;
+using ToDo.Extensions;
 using Xamarin.Forms.Xaml;
 
 namespace ToDo.Pages
@@ -15,6 +17,15 @@ namespace ToDo.Pages
         public ListsPage()
         {
             InitializeComponent();
+        }
+
+        private void ListView_ItemTapped(object sender, ItemTappedEventArgs e)
+        {
+            var item = e.Item as ToDoList;
+
+            (sender as ListView).SelectedItem = null;
+
+            Navigation.PushAsync<ItemsPage, ItemsPageModel>(x => x.Init(item));            
         }
     }
 }
