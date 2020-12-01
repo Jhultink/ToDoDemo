@@ -6,5 +6,90 @@
     <Application.Resources>
         <converters:CollectionEmptyConverter x:Key="Converter_CollectionEmpty" />
         <converters:CollectionNotEmptyConverter x:Key="Converter_CollectionNotEmpty" />
+
+        <!-- App Colors -->
+        <Color x:Key="LightGray">#43434366</Color>
+        <Color x:Key="Black">#2C2C2C</Color>
+        <Color x:Key="Green1">#39615F</Color>
+        
+        <!-- Text Styles -->
+        <Style x:Key="Header" TargetType="{x:Type Label}">
+            <Setter Property="FontSize"
+                    Value="28"/>
+            <Setter Property="TextColor"
+                    Value="{StaticResource Green1}"/>
+        </Style>
+
+        <Style x:Key="HeaderMedium" TargetType="{x:Type Label}">
+            <Setter Property="FontSize"
+                    Value="16"/>
+            <Setter Property="TextColor"
+                    Value="{StaticResource Green1}"/>
+        </Style>
+
+        <Style x:Key="HeaderSmall" TargetType="{x:Type Label}">
+            <Setter Property="FontSize"
+                    Value="16"/>
+            <Setter Property="TextColor"
+                    Value="{StaticResource Green1}"/>
+        </Style>
+
+        <Style x:Key="BodyCopyLargeBold" TargetType="{x:Type Label}">
+            <Setter Property="FontSize"
+                    Value="20"/>
+            <Setter Property="TextColor"
+                    Value="{StaticResource Black}"/>
+        </Style>
+
+        <Style x:Key="BodyCopyBold" TargetType="{x:Type Label}">
+            <Setter Property="FontSize"
+                    Value="16"/>
+            <Setter Property="TextColor"
+                    Value="{StaticResource Black}"/>
+        </Style>
+
+        <Style TargetType="{x:Type Label}">
+            <Setter Property="FontSize"
+                    Value="16"/>
+            <Setter Property="TextColor"
+                    Value="{StaticResource Black}"/>
+        </Style>
+
+        <Style x:Key="BodyCopySmall" TargetType="{x:Type Label}">
+            <Setter Property="FontSize"
+                    Value="14"/>
+            <Setter Property="TextColor"
+                    Value="{StaticResource Black}"/>
+        </Style>
+
+
+        <!-- Buttons -->
+        <Style x:Key="PrimaryButton" TargetType="{x:Type Button}">
+            <Setter Property="BackgroundColor"
+                    Value="{StaticResource Green1}"/>
+            <Setter Property="HeightRequest"
+                    Value="40"/>
+            <Setter Property="WidthRequest"
+                    Value="200"/>
+            <Setter Property="CornerRadius"
+                    Value="20" />
+            <Setter Property="TextColor"
+                    Value="White"/>
+            <Setter Property="FontSize"
+                    Value="16" />
+            <Setter Property="Padding"
+                    Value="20, 0"/>
+        </Style>
+
+        <Style x:Key="SecondaryButton" TargetType="{x:Type Button}" BasedOn="{StaticResource PrimaryButton}">
+            <Setter Property="BackgroundColor"
+                    Value="Transparent"/>
+            <Setter Property="BorderWidth"
+                    Value="2" />
+            <Setter Property="BorderColor"
+                    Value="{StaticResource Green1}"/>
+            <Setter Property="TextColor"
+                    Value="{StaticResource Green1}"/>
+        </Style>
     </Application.Resources>
 </Application>

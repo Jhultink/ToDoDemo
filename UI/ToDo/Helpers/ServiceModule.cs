@@ -1,4 +1,6 @@
 ﻿using Autofac;
+using Rg.Plugins.Popup.Contracts;
+using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,6 +14,10 @@ namespace ToDo.Helpers
         {
             builder.RegisterType<LocalToDoService>()
                 .As<IToDoService>()
+                .SingleInstance();
+
+            builder.RegisterInstance(PopupNavigation.Instance)
+                .As<IPopupNavigation>()
                 .SingleInstance();
         }
     }

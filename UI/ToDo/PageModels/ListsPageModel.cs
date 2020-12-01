@@ -9,6 +9,9 @@ using ToDo.Models;
 using ToDo.Pages;
 using Xamarin.Forms;
 using ToDo.Extensions;
+using Rg.Plugins.Popup.Contracts;
+using ToDo.Pages.Popups;
+using System.Diagnostics;
 
 namespace ToDo.PageModels
 {
@@ -24,10 +27,12 @@ namespace ToDo.PageModels
         public ICommand CreateCommand { get; set; }
 
         private readonly IToDoService _toDoService;
+        private readonly IPopupNavigation _popupNavigation;
 
-        public ListsPageModel(IToDoService toDoService)
+        public ListsPageModel(IToDoService toDoService, IPopupNavigation popupNavigation)
         {
             _toDoService = toDoService;
+            _popupNavigation = popupNavigation;
 
             CreateCommand = new Command(Create);
         }
@@ -40,7 +45,34 @@ namespace ToDo.PageModels
 
         public async void Create()
         {
-            await Navigation.PushAsync<ItemsPage, ItemsPageModel>();
+            try
+            {
+                var setNamePopupPage = new SetNamePopupPage()
+                {
+                    Header = "List Name",
+                    Body = "Set a list name"
+                };
+
+                await _popupNavigation.PushAsync(setNamePopupPage);
+
+                string name = await setNamePopupPage.Task;
+
+                ToDoList newList = new ToDoList
+                {
+                    Id = Guid.NewGuid(),
+                    Name = name
+                };
+
+                await _toDoService.CreateList(newList);
+
+                Lists.Add(newList);
+
+                OnPropertyChanged(nameof(Lists)); // To show/hide list
+            }
+            catch(OperationCanceledException)
+            {
+                Debug.WriteLine("User cancelled setting name");
+            }
         }
     }
 }

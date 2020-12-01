@@ -18,13 +18,15 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <StackLayout IsVisible="{Binding Lists, Converter={StaticResource Converter_CollectionEmpty}}">
-                <Label Text="No Lists"
+            <StackLayout VerticalOptions="CenterAndExpand"
+                         Spacing="20"
+                         IsVisible="{Binding Lists, Converter={StaticResource Converter_CollectionEmpty}}">
+                <Label Text="You currently have no lists"
                        HorizontalOptions="CenterAndExpand"/>
                 <Button Text="Create" 
+                        Style="{StaticResource PrimaryButton}"
                         HorizontalOptions="CenterAndExpand"
-                        Command="{Binding CreateCommand}"
-                        />
+                        Command="{Binding CreateCommand}" />
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>
