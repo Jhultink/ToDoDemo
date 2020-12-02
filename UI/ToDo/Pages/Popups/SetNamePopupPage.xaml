@@ -20,12 +20,12 @@
             HasBackgroundAnimation="True"/>
     </rg:PopupPage.Animation>
 
-    <Frame Margin="80, 0"
+    <Frame Margin="20, 0"
            VerticalOptions="Center">
         <StackLayout Spacing="10">
 
             <Label Margin="0,0,0,10"
-                   Style="{StaticResource BodyCopyLargeBold}"
+                   Style="{StaticResource Header}"
                    Text="{Binding Body, Source={Reference _root}}"
                    VerticalOptions="CenterAndExpand" 
                    HorizontalOptions="CenterAndExpand" />

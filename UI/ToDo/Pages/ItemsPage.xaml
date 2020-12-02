@@ -32,16 +32,24 @@
                                                    BackgroundColor="Red" />
                                     </SwipeItems>
                                 </SwipeView.RightItems>
-                                <StackLayout Padding="15" 
-                                         Orientation="Horizontal">
-                                    <StackLayout.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding BindingContext.EditItemCommand, Source={Reference _root}}"
-                                                              CommandParameter="{Binding .}"/>
-                                    </StackLayout.GestureRecognizers>
+
+                                <StackLayout Spacing="0"
+                                             Orientation="Horizontal">                                    
                                     <Label Text="{Binding Name}" 
-                                       VerticalOptions="CenterAndExpand" />
-                                    <CheckBox IsChecked="{Binding Completed, Mode=TwoWay}"
-                                          HorizontalOptions="EndAndExpand" />
+                                           VerticalOptions="FillAndExpand" 
+                                           Padding="15"
+                                           VerticalTextAlignment="Center"
+                                           HorizontalOptions="FillAndExpand">
+                                        <Label.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding BindingContext.EditItemCommand, Source={Reference _root}}"
+                                                              CommandParameter="{Binding .}"/>
+                                        </Label.GestureRecognizers>
+                                    </Label>
+                                    
+                                    <CheckBox x:Name="checkbox"
+                                              Margin="15"
+                                              IsChecked="{Binding Completed, Mode=TwoWay}"
+                                              HorizontalOptions="End" />
                                 </StackLayout>
                             </SwipeView>
                         </ViewCell>

@@ -20,17 +20,17 @@
             HasBackgroundAnimation="True"/>
     </rg:PopupPage.Animation>
 
-    <Frame Margin="80, 0"
+    <Frame Margin="20, 0"
            VerticalOptions="Center">
         <StackLayout Spacing="10">
-            <Label Style="{StaticResource HeaderMedium}"
+            <Label Style="{StaticResource Header}"
                    Text="{Binding Header, Source={Reference _root}}"
                    HorizontalOptions="Start" />
 
             <Label Margin="0,0,0,10"
                    Text="{Binding Body, Source={Reference _root}}"
                    VerticalOptions="CenterAndExpand" 
-                   HorizontalOptions="CenterAndExpand" />
+                   HorizontalOptions="Start" />
 
             <Button Style="{StaticResource PrimaryButton}"
                     Text="{Binding ConfirmButtonText, Source={Reference _root}}"
