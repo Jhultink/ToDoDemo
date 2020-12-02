@@ -29,12 +29,12 @@
                                     </SwipeItems>
                                 </SwipeView.RightItems>
                                 <StackLayout Padding="15" 
-                                         Orientation="Horizontal">
+                                             Orientation="Horizontal">
                                     <Label Text="{Binding Name}" 
-                                       VerticalOptions="CenterAndExpand" />
+                                           VerticalOptions="CenterAndExpand" />
                                     <Image Source="Chevron.png"
-                                       HorizontalOptions="EndAndExpand"
-                                       VerticalOptions="CenterAndExpand" />
+                                           HorizontalOptions="EndAndExpand"
+                                           VerticalOptions="CenterAndExpand" />
                                 </StackLayout>
                             </SwipeView>
                         </ViewCell>
